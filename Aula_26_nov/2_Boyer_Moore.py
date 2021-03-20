@@ -24,7 +24,7 @@ class BoyerMoore:
         ''' 
         Bad character rule processing.
         '''
-        self.occ = {}
+        self.occ = {}                                                         # dictionary that will contain the character and the index of its last position in the pattern.
         for c in self.alphabet:
             self.occ[c] = -1
         for i in range(len(self.pattern)):
