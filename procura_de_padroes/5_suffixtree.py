@@ -84,8 +84,8 @@ class SuffixTree:
         pos = 0
         node = 0
         for pos in range(len(pattern)):
-            if pattern[pos] in self.nodes[node][1].keys():
-                node = self.nodes[node][1][pattern[pos]]
+            if pattern[pos] in self.nodes[node][1].keys():                # if the symbol is found in one of the node's keys
+                node = self.nodes[node][1][pattern[pos]]                  # the node is given by the destination value corresponding to the symbol
                 pos += 1
             else: return None
         return self.get_leafes_below(node)
@@ -106,9 +106,9 @@ class SuffixTree:
         
         '''
         res = []                                                           # res will be the list of leaves bellow the node
-        if self.nodes[node][0] >=0:                                        # if it's a leaf
-            res.append(self.nodes[node][0])                                
-        else:                                                              # if it's not a leaf
+        if self.nodes[node][0] >=0:                                        # if it's a leaf it will have the position of the suffix
+            res.append(self.nodes[node][0])                                # append to the result the position of the suffix
+        else:                                                              # if it's not a leaf (internal nodes are labeled -1)
             for k in self.nodes[node][1].keys():                           # check all the branches
                 newnode = self.nodes[node][1][k]
                 leaves = self.get_leafes_below(newnode)
