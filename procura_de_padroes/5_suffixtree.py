@@ -97,7 +97,7 @@ class SuffixTree:
         
         Parameter
         ----------
-        node : str 
+        node : int
         
         Returns
         ----------
