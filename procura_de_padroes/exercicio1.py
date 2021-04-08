@@ -115,7 +115,7 @@ class SuffixTree:
                 res.extend(leaves)                                         # adds the elements of 'leaves' to res
         return res
 ##############################################################################################################################3
-# ex1 - doesn't have the correct result
+# ex1 
 
     def nodes_bellow(self, node):
         '''
@@ -131,19 +131,14 @@ class SuffixTree:
             List of the identifiers bellow a node.
 
         '''
-        res = []                                                           
-        leaves = self.get_leafes_below(node) 
-        for KN in self.nodes:
-            if KN <  node:
-                KN+=1
-            else:    
-                for k in self.nodes[KN][1].keys():      # for each key
-                    newnode = self.nodes[KN][1][k]      # new node is the corresponding symbol
-                    res.append(newnode) 
-        for n in res:                                    # remove leaves from the result 
-            if n in leaves: res.remove(n)
+        res = [node]
+        for n in res:
+            if self.nodes[n][0] <0:                                         # if it's not a leaf
+                for v in self.nodes[n][1].values():                         # for each key in the dictionary inside the tuple
+                    res.append(v)                                           # new node is the corresponding value   
+        return sorted(res[1::])                                             # remove the first, because it corresponds to the node itself
+      
                                 
-        return sorted(res)                     
  #############################################################33333
     def matches_prefix (self, prefix):
       
