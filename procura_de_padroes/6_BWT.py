@@ -67,23 +67,23 @@ class BWT:
 
     def bw_matching(self, patt):
         lf = self.last_to_first()
-        res = []
-        top = 0
-        bottom = len(self.bwt)-1
+        res = []                                                              # list of the positions where pattern occurrs in the 1st column
+        top = 0                                                               # first position
+        bottom = len(self.bwt)-1                                              # last position
         flag = True
         while flag and top <= bottom:
-            if patt != "":
+            if patt != "":                                                    # if pattern is not empty continue, else stop
                 symbol = patt[-1]
                 patt = patt[:-1]
-                lmat = self.bwt[top:(bottom+1)]
-                if symbol in lmat:
-                    topIndex = lmat.index(symbol) + top
-                    bottomIndex = bottom - lmat[::-1].index(symbol)
-                    top = lf[topIndex]
-                    bottom = lf[bottomIndex]
-                else: flag = False
+                lmat = self.bwt[top:(bottom+1)]                              
+                if symbol in lmat:                                            # if the symbol exists between top and bottom
+                    topIndex = lmat.index(symbol) + top                       # first occurrence of the symbol
+                    bottomIndex = bottom - lmat[::-1].index(symbol)           # last occurence of the symbol
+                    top = lf[topIndex]                                        # recalculate top
+                    bottom = lf[bottomIndex]                                  # recalculate bottom
+                else: flag = False                                            
             else: 
-                for i in range(top, bottom+1): res.append(i)
+                for i in range(top, bottom+1): res.append(i)                  # append elements between top and bottom to the res list
                 flag = False            
         return res        
  
