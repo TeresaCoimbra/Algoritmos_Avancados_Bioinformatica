@@ -141,8 +141,55 @@ class SuffixTree:
                                 
  #############################################################33333
     def matches_prefix (self, prefix):
+        '''
+        Verifies all of the patterns that start with a certain prefix, that are contained
+        within the sequence that originated the suffix tree. 
+
+        Parameters
+        ----------
+        prefix : str
+
+        Returns
+        -------
+        res: list
+            List of all the patterns that beggin with prefix that are contained
+            within the sequence that originated the tree. 
+
+        '''
+        res1 = []
+        lpos = self.find_pattern(prefix)                                      # find_pattern returns a list with the leaves where the pattern was found
+        # starting at the positions where the pattern was found go through the tree 
+        finish_nodes = []                                                     # finish_nodes will have the nodes where the interesting leaves where found
+        for node in self.nodes.keys():
+            if self.nodes[node][0] in lpos: 
+                finish_nodes.append(node)
       
-        pass
+        
+        bellow = self.nodes_bellow(lpos[0])                                   # nodes bellow
+        
+        if bellow[0] == 1:
+            bellow.insert(0,0)                                                # insert the starting position
+            
+      
+        p = ''                                                                # pattern found
+        
+        # pattern will go from start node to finishing nodes, going through all of the nodes bellow
+      
+        for n in bellow: 
+            if (n not in finish_nodes):
+                for k in self.nodes[n][1].keys():                             # for each value 
+                    if k != '$': 
+                        p += k  
+                    res1.append(p)
+            else:
+                break
+        
+        # process the result
+        res = []
+        for seq in res1:
+            if len(seq) >= len(prefix) and (seq not in res):                  # remove sequences shorter than prefix and avoid repetitions
+                res.append(seq)                                        
+        return res
  ###################################################################
     
 def test():
